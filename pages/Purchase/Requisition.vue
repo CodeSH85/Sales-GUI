@@ -1,6 +1,18 @@
 <template>
 	<div class="pt-6">
-		<div class="flex flex-col items-start py-6 px-4 gap-4 border-y border-accented">
+		<div class="flex flex-col items-start py-6 px-4 gap-4 border-b border-accented">
+			<div class="flex flex-col gap-1 items-start">
+				<label class="text-base font-medium">採購單號</label>
+				<USelectMenu 
+					:items="billList" 
+					v-model="billID"
+					size="lg" 
+					class="w-48" 
+					:value-key="'key'" 
+					:label-key="'title'"
+					@update:modelValue="(value) => onSelectBillID(value)"
+				/>
+			</div>
 			<div class="flex items-center gap-x-4">
 				<div class="flex flex-col gap-1 items-start">
 					<label class="text-base font-medium">日期</label>
@@ -59,6 +71,26 @@
 <script setup lang="ts">
 import { h, resolveComponent } from 'vue'
 import type { TableColumn } from '@nuxt/ui'
+
+const billList = ref<object[]>([])
+const billID = ref()
+async function onSelectBillID(value: string) {
+	console.log('select bill: ', value)
+	const { data, status, error } = await useFetch(`/api/get/${value}`)
+	console.log(data.value[0])
+}
+
+onMounted(async () => {
+	const { data: result, status } = await useFetch('/api/readFiles/PO')
+	if (result.value) {
+		billList.value = result.value.map((r) => {
+			return {
+				key: r[0].id.split('.')[0],
+				title: r[0].id.split('.')[0]
+			}
+		})
+	}
+})
 
 const UInput = resolveComponent('UInput')
 
