@@ -1,0 +1,21 @@
+[
+	{
+		"id": "PO-20240501-002",
+		"vendorId": "V001",
+		"vendorName": "百利貿易有限公司",
+		"orderDate": "2025/05/02",
+		"status": "confirmed",
+		"totalAmount": 3150,
+		"createdBy": "user002",
+		"items": [
+			{
+				"itemId": "ITEM-002",
+				"name": "鋁材",
+				"quantity": 200,
+				"unitPrice": 100,
+				"taxRate": 0.05
+			}
+		]
+	}
+]
+  
