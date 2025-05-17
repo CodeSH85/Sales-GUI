@@ -70,6 +70,7 @@
 </template>
 <script setup lang="ts">
 import { h, resolveComponent } from 'vue'
+import { useDebounceFn, useEventListener } from '@vueuse/core'
 import type { TableColumn } from '@nuxt/ui'
 
 const billList = ref<object[]>([])
@@ -91,6 +92,11 @@ onMounted(async () => {
 		})
 	}
 })
+
+/* ===== Function ===== */
+const updateField = useDebounceFn(({ key, value, field, index }) => {
+	console.log(key, value, field, index)
+}, 200)
 
 const UInput = resolveComponent('UInput')
 
