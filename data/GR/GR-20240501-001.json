@@ -1,0 +1,14 @@
+{
+  "id": "GR-20240501-001",
+  "poId": "PO-20240501-001",
+  "receivedDate": "2025-05-02",
+  "warehouseId": "WH-01",
+  "items": [
+    {
+      "itemId": "ITEM-001",
+      "name": "紙箱",
+      "quantity": 100
+    }
+  ],
+  "status": "received"
+}

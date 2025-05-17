@@ -1,0 +1,13 @@
+{
+  "id": "PR-20240501-001",
+  "requestedBy": "user001",
+  "requestDate": "2025-05-01",
+  "items": [
+    {
+      "itemId": "ITEM-001",
+      "name": "紙箱",
+      "quantity": 100
+    }
+  ],
+  "status": "approved"
+}
