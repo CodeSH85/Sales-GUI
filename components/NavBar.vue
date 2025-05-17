@@ -5,7 +5,7 @@
         :items="mainNavItems" 
         class="p-1 data-[orientation=vertical]:w-full"
         :ui="{
-          link: 'text-2xl',
+          link: 'text-lg',
         }"
       >
       <template #item="{ item, index, active }">
