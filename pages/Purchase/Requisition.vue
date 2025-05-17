@@ -1,4 +1,27 @@
 <template>
+	<div class="flex items-center justify-end gap-x-2">
+		<UButton 
+			label="建立"
+			icon="i-heroicons-plus" 
+			color="primary" 
+			variant="solid" 
+			@click="onAddNewData"
+		/>
+		<UButton 
+			label="修改"
+			icon="i-heroicons-plus" 
+			color="primary" 
+			variant="solid" 
+			@click="onChangeData"
+		/>
+		<UButton 
+			label="刪除"
+			icon="i-heroicons-plus" 
+			color="error" 
+			variant="solid" 
+			@click="onDeleteData"
+		/>
+	</div>
 	<div class="pt-6">
 		<div v-for="(section, sectionName) in groupedColModel" :key="sectionName" class="py-6 px-4 border-b border-accented">
 			<div class="grid grid-cols-10 gap-4">
@@ -100,6 +123,16 @@ onMounted(async () => {
 const updateField = useDebounceFn(({ key, value, field, index }) => {
 	console.log(key, value, field, index)
 }, 200)
+
+function onAddNewData() {
+	console.log('Add new data')
+}
+function onChangeData() {
+	console.log('Change data')
+}
+function onDeleteData() {
+	console.log('Delete data')
+}
 
 /* ===== Table ===== */
 const table = useTemplateRef('table')
