@@ -151,6 +151,7 @@ function onDeleteRowData() {
 	if (selectedRows.length) {
 		const selectedRowsIdx = selectedRows.map(row => row.index)
 		const result = removeByIndexes(billData.value.items, selectedRowsIdx)
+		billData.value.items = result;
 	}
 }
 function removeByIndexes(array, indexesToRemove) {
