@@ -33,6 +33,22 @@
 						</template>
 						<template v-else-if="getComponent(col) === 'select'"></template>
 						<template v-else-if="getComponent(col) === 'table'">
+							<div class="flex items-center gap-x-4">
+								<UButton 
+									label="新增項目"
+									icon="i-heroicons-plus" 
+									color="primary" 
+									variant="solid" 
+									@click="onAddRowData"
+								/>
+								<UButton 
+									label="刪除"
+									icon="i-heroicons-trash" 
+									color="error" 
+									variant="soft" 
+									@click="onDeleteRowData"
+								/>
+							</div>
 							<div class="w-full h-full overflow-auto">
 								<UTable 
 									ref="table"
@@ -89,6 +105,25 @@ const updateField = useDebounceFn(({ key, value, field, index }) => {
 const table = useTemplateRef('table')
 const UInput = resolveComponent('UInput')
 const UCheckbox = resolveComponent('UCheckbox')
+
+function onAddRowData() {
+	if (!billData.value.items) {
+		billData.value.items = []	;
+	}
+	billData.value.items.push({})
+}
+function onDeleteRowData() {
+	const selectedRows = table.value?.[0].tableApi?.getFilteredSelectedRowModel().rows || []
+	console.log(selectedRows)
+	if (selectedRows.length) {
+		const selectedRowsIdx = selectedRows.map(row => row.index)
+		const result = removeByIndexes(billData.value.items, selectedRowsIdx)
+	}
+}
+function removeByIndexes(array, indexesToRemove) {
+	if (!indexesToRemove) return array
+  return array.filter((_, index) => !indexesToRemove.includes(index));
+}
 
 type columnsType = {
 	itemId: string
