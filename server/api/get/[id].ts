@@ -2,9 +2,8 @@ import fs from 'fs'
 import path from 'path'
 
 export default defineEventHandler((event) => {
-	console.log('get event:', event.context.params)
-	const id = event.context.params?.id
-	console.log('get id:', id)
+	// console.log('get event:', event.context.params)
+	const id = event.context.params?.id;
 	if (!id) return
 	const where = id.split('-')[0];
 
