@@ -133,9 +133,19 @@ const updateField = useDebounceFn(({ key, value, field, index }) => {
 	}
 }, 200)
 
-function onAddNewData() {
-	console.log('Add new data')
+async function onAddNewData() {
+	console.log('Add new data', billData.value)
+	try {
+		const result = await $fetch('/api/create/PO', {
+      method: 'POST',
+			body: billData.value
+    })
+    console.log(result)
+	} catch (err) {
+		console.error('Error creating PO:', err)
+	}
 }
+
 function onChangeData() {
 	console.log('Change data')
 }
