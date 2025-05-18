@@ -105,8 +105,8 @@ const billList = ref<object[]>([])
 const billID = ref()
 const billData= ref<object>({})
 async function onSelectBillID(value: string) {
-	const { data, status, error } = await useFetch(`/api/get/${value}`)
-	billData.value = data.value[0];
+	const result = await $fetch(`/api/get/${value}`)
+	billData.value = result;
 }
 
 onMounted(async () => {
@@ -114,8 +114,8 @@ onMounted(async () => {
 	if (result.value) {
 		billList.value = result.value.map((r) => {
 			return {
-				key: r[0].id.split('.')[0],
-				title: r[0].id.split('.')[0]
+				key: r.id.split('.')[0],
+				title: r.id.split('.')[0]
 			}
 		})
 	}
@@ -123,12 +123,29 @@ onMounted(async () => {
 
 /* ===== Function ===== */
 const updateField = useDebounceFn(({ key, value, field, index }) => {
-	console.log(key, value, field, index)
+	if (key && field) {
+		if (!billData.value[key]) {
+			billData.value[key] = [];
+		}
+		billData.value[key][index][field] = value;
+	} else if (key) {
+		billData.value[key] = value;
+	}
 }, 200)
 
-function onAddNewData() {
-	console.log('Add new data')
+async function onAddNewData() {
+	console.log('Add new data', billData.value)
+	try {
+		const result = await $fetch('/api/create/PO', {
+      method: 'POST',
+			body: billData.value
+    })
+    console.log(result)
+	} catch (err) {
+		console.error('Error creating PO:', err)
+	}
 }
+
 function onChangeData() {
 	console.log('Change data')
 }
