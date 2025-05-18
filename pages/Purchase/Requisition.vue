@@ -123,7 +123,14 @@ onMounted(async () => {
 
 /* ===== Function ===== */
 const updateField = useDebounceFn(({ key, value, field, index }) => {
-	console.log(key, value, field, index)
+	if (key && field) {
+		if (!billData.value[key]) {
+			billData.value[key] = [];
+		}
+		billData.value[key][index][field] = value;
+	} else if (key) {
+		billData.value[key] = value;
+	}
 }, 200)
 
 function onAddNewData() {
