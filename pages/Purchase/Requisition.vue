@@ -105,8 +105,8 @@ const billList = ref<object[]>([])
 const billID = ref()
 const billData= ref<object>({})
 async function onSelectBillID(value: string) {
-	const { data, status, error } = await useFetch(`/api/get/${value}`)
-	billData.value = data.value[0];
+	const result = await $fetch(`/api/get/${value}`)
+	billData.value = result;
 }
 
 onMounted(async () => {
