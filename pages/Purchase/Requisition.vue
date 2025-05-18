@@ -114,8 +114,8 @@ onMounted(async () => {
 	if (result.value) {
 		billList.value = result.value.map((r) => {
 			return {
-				key: r[0].id.split('.')[0],
-				title: r[0].id.split('.')[0]
+				key: r.id.split('.')[0],
+				title: r.id.split('.')[0]
 			}
 		})
 	}

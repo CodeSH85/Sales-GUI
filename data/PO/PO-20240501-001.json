@@ -1,28 +1,26 @@
-[
-	{
-		"id": "PO-20240501-001",
-		"vendorId": "V001",
-		"vendorName": "百利貿易有限公司",
-		"orderDate": "2025/05/01",
-		"status": "confirmed",
-		"totalAmount": 3150,
-		"createdBy": "user001",
-		"items": [
-			{
-				"itemId": "ITEM-001",
-				"name": "鋁圓柱",
-				"quantity": 50,
-				"unitPrice": 50,
-				"taxRate": 0.05
-			},
-			{
-				"itemId": "ITEM-015",
-				"name": "鋁塊",
-				"quantity": 100,
-				"unitPrice": 25.5,
-				"taxRate": 0.05
-			}
-		]
-	}
-]
+{
+	"id": "PO-20240501-001",
+	"vendorId": "V001",
+	"vendorName": "百利貿易有限公司",
+	"orderDate": "2025/05/01",
+	"status": "confirmed",
+	"totalAmount": 3150,
+	"createdBy": "user001",
+	"items": [
+		{
+			"itemId": "ITEM-001",
+			"name": "鋁圓柱",
+			"quantity": 50,
+			"unitPrice": 50,
+			"taxRate": 0.05
+		},
+		{
+			"itemId": "ITEM-015",
+			"name": "鋁塊",
+			"quantity": 100,
+			"unitPrice": 25.5,
+			"taxRate": 0.05
+		}
+	]
+}
   
