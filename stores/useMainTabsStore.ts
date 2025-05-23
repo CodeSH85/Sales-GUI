@@ -17,6 +17,10 @@ export const useMainTabsStore = defineStore('tabs', () => {
 
   const router = useRouter()
 
+  /**
+   * 
+   * @param {object} tab 
+   */
   function addTab(tab: Tab) {
     if (!tabs.value.find(t => t.id === tab.id)) {
       tabs.value.push(tab)
@@ -27,6 +31,10 @@ export const useMainTabsStore = defineStore('tabs', () => {
     });
   }
 
+  /**
+   * 
+   * @param {string} id -  
+   */
   function removeTab(id: string) {
     const idx = tabs.value.findIndex(tab => tab.id === id)
     if (idx > -1) {
@@ -44,7 +52,7 @@ export const useMainTabsStore = defineStore('tabs', () => {
 
   /**
    * 
-   * @param {number} id - tab id.
+   * @param {string} id - tab id.
    */
   function setCurrentTab(id: string) {
     const _tab = tabs.value.find(tab => tab.id === id);
