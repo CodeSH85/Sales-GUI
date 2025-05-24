@@ -14,6 +14,9 @@ export const useMainTabsStore = defineStore('tabs', () => {
   const currentTab = computed(() => {
     return tabs.value.find(tab => tab.id === currentTabId.value)
   })
+  const currentTabIndex = computed(() => {
+    return tabs.value.findIndex(tab => tab.id === currentTabId.value)
+  })
 
   const router = useRouter()
 
@@ -64,6 +67,7 @@ export const useMainTabsStore = defineStore('tabs', () => {
   return {
     tabs,
     currentTabId,
+    currentTabIndex,
     currentTab,
     addTab,
     removeTab,
