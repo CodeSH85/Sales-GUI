@@ -25,13 +25,11 @@ export const useMainTabsStore = defineStore('tabs', () => {
    * @param {object} tab 
    */
   function addTab(tab: Tab) {
-    if (!tabs.value.find(t => t.id === tab.id)) {
+    const isExist = tabs.value.find(t => t.id === tab.id)
+    if (!isExist) {
       tabs.value.push(tab)
     }
-    nextTick(() => {
-      tabs.value.push(tab);
-      setCurrentTab(tab.id);
-    });
+    setCurrentTab(tab.id);
   }
 
   /**
@@ -59,10 +57,16 @@ export const useMainTabsStore = defineStore('tabs', () => {
    */
   function setCurrentTab(id: string) {
     const _tab = tabs.value.find(tab => tab.id === id);
-    if (!(_tab && Object.keys(_tab).length)) return;
+    if (!_tab) return;
     currentTabId.value = id;
     router.push(_tab.to)
   }
+
+  watch(tabs, (val) => {
+    if (val.length && !currentTabId.value) {
+      currentTabId.value = val[0].id
+    }
+  })
 
   return {
     tabs,
