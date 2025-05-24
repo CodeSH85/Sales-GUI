@@ -8,7 +8,8 @@
 				<MainTabs></MainTabs>
 			</div>
 			<div class="w-full flex-grow bg-white">
-				<slot />
+				<!-- <slot /> -->
+				 <NuxtPage />
 			</div>
 		</div>
 	</div>
