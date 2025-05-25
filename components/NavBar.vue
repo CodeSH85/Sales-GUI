@@ -42,8 +42,14 @@ const {
 function onClickNavItem(item: NavigationMenuItem) {
   console.log(item)
   if (!item.path) return
+
+  const id = item.path
+    .replace(/^\//, '')
+    .replace(/\//g, '-')
+    .toLowerCase()
+
   addTab({
-    id: item.path,
+    id,
     title: item.label || '',
     to: item.path,
     fullPath: item.path

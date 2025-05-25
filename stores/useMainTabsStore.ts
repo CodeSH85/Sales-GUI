@@ -20,7 +20,11 @@ export const useMainTabsStore = defineStore('tabs', () => {
     return tabs.value.findIndex(tab => tab.id === currentTabId.value)
   })
 
-  const router = useRouter()
+  const router = useRouter();
+
+  const catchedPages = computed(() => {
+    return tabs.value.map(tab => tab.id)
+  })
 
   /**
    * 
@@ -77,6 +81,7 @@ export const useMainTabsStore = defineStore('tabs', () => {
     currentTabId,
     currentTabIndex,
     currentTab,
+    catchedPages,
     addTab,
     removeTab,
     setCurrentTab,
