@@ -1,12 +1,14 @@
 import { ref, computed } from 'vue';
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import { navigateTo } from '#app';
+import type { Tab } from '../type/types';
 
-export interface Tab {
-  id: string
-  title: string
-  to: string
-  fullPath: string
-}
+// export interface Tab {
+//   id: string
+//   title: string
+//   to: string
+//   fullPath: string
+// }
 
 export const useMainTabsStore = defineStore('tabs', () => {
   const tabs = ref<Tab[]>([]);
@@ -14,21 +16,26 @@ export const useMainTabsStore = defineStore('tabs', () => {
   const currentTab = computed(() => {
     return tabs.value.find(tab => tab.id === currentTabId.value)
   })
+  const currentTabIndex = computed(() => {
+    return tabs.value.findIndex(tab => tab.id === currentTabId.value)
+  })
 
-  const router = useRouter()
+  const router = useRouter();
+
+  const catchedPages = computed(() => {
+    return tabs.value.map(tab => tab.id)
+  })
 
   /**
    * 
    * @param {object} tab 
    */
   function addTab(tab: Tab) {
-    if (!tabs.value.find(t => t.id === tab.id)) {
+    const isExist = tabs.value.find(t => t.id === tab.id)
+    if (!isExist) {
       tabs.value.push(tab)
     }
-    nextTick(() => {
-      tabs.value.push(tab);
-      setCurrentTab(tab.id);
-    });
+    setCurrentTab(tab.id);
   }
 
   /**
@@ -44,7 +51,8 @@ export const useMainTabsStore = defineStore('tabs', () => {
         const next = tabs.value[idx - 1] || tabs.value[0]
         currentTabId.value = next?.id || ''
         if (next) {
-          router.push(next.to)
+          // router.push(next.to)
+          navigateTo(next.to)
         }
       }
     }
@@ -56,15 +64,24 @@ export const useMainTabsStore = defineStore('tabs', () => {
    */
   function setCurrentTab(id: string) {
     const _tab = tabs.value.find(tab => tab.id === id);
-    if (!(_tab && Object.keys(_tab).length)) return;
+    if (!_tab) return;
     currentTabId.value = id;
-    router.push(_tab.to)
+    // router.push(_tab.to)
+    navigateTo(_tab.to)
   }
+
+  watch(tabs, (val) => {
+    if (val.length && !currentTabId.value) {
+      currentTabId.value = val[0].id
+    }
+  })
 
   return {
     tabs,
     currentTabId,
+    currentTabIndex,
     currentTab,
+    catchedPages,
     addTab,
     removeTab,
     setCurrentTab,

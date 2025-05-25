@@ -47,6 +47,13 @@
 <script setup lang="ts">
 import type { TabsItem } from '@nuxt/ui'
 
+definePageMeta({
+	keepalive: true
+})
+defineOptions({
+	name: 'accounting-entry'
+})
+
 const tabItems = ref<TabsItem[]>([
   {
     label: '分頁 1'

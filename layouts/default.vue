@@ -8,10 +8,15 @@
 				<MainTabs></MainTabs>
 			</div>
 			<div class="w-full flex-grow bg-white">
-				<slot />
+				<!-- <slot /> -->
+				<keep-alive :include="catchedPages">
+					<NuxtPage />
+				</keep-alive>
 			</div>
 		</div>
 	</div>
 </template>
 <script setup>
+
+const { catchedPages } = storeToRefs(useMainTabsStore())
 </script>

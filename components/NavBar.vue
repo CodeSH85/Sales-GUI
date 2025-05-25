@@ -10,7 +10,7 @@
       >
       <template #item="{ item, index, active }">
         <div v-if="!item.children" class="w-full">
-          <div class="w-full flex items-center gap-x-1.5">
+          <div class="w-full flex items-center gap-x-1.5" @click="onClickNavItem(item)">
             <UIcon v-if="item.icon" :name="item.icon" class="size-5" />
             <div :class="item.icon ? '' : 'pl-5'">
               {{ item.label }}
@@ -33,7 +33,28 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui'
+import type { NavigationMenuItem } from '@nuxt/ui';
+
+const {
+  addTab
+} = useMainTabsStore();
+
+function onClickNavItem(item: NavigationMenuItem) {
+  console.log(item)
+  if (!item.path) return
+
+  const id = item.path
+    .replace(/^\//, '')
+    .replace(/\//g, '-')
+    .toLowerCase()
+
+  addTab({
+    id,
+    title: item.label || '',
+    to: item.path,
+    fullPath: item.path
+  })
+}
 
 const mainNavItems = ref<NavigationMenuItem[][]>([
   [
@@ -47,13 +68,14 @@ const mainNavItems = ref<NavigationMenuItem[][]>([
           label: '請購單',
           description: '',
           icon: 'i-lucide-file-text',
-          to: '/Purchase/Requisition'
+          // to: '/Purchase/Requisition'
+          path: '/Purchase/Requisition'
         },
         {
           label: '進貨管理',
           description: '',
           icon: 'i-lucide-file-text',
-          to: '/Purchase/Order'
+          path: '/Purchase/Order'
         }
       ]
     },
@@ -64,14 +86,12 @@ const mainNavItems = ref<NavigationMenuItem[][]>([
     {
       label: '訂單管理',
       icon: '',
-      // to: '/components',
       defaultOpen: true,
       children: []
     },
     {
       label: '應收帳款管理',
       icon: '',
-      // to: '/components',
       defaultOpen: true,
       children: []
     },
@@ -85,7 +105,7 @@ const mainNavItems = ref<NavigationMenuItem[][]>([
       label: '會計分錄',
       icon: '',
       defaultOpen: true,
-      to: '/Accounting/Entry',
+      path: '/Accounting/Entry',
       children: [],
     }
   ]
@@ -95,13 +115,6 @@ const otherItems = ref<NavigationMenuItem[][]>([
     {
       label: 'Settings',
       type: 'label',
-    },
-    {
-      label: 'GitHub',
-      icon: 'i-simple-icons-github',
-      badge: '3.8k',
-      to: 'https://github.com/nuxt/ui',
-      target: '_blank'
     },
     {
       label: 'Help',

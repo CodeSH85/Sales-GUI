@@ -101,6 +101,13 @@ import { h, resolveComponent, ref, useTemplateRef } from 'vue'
 import { useDebounceFn, useEventListener } from '@vueuse/core'
 import type { TableColumn } from '@nuxt/ui'
 
+definePageMeta({
+	keepalive: true
+})
+defineOptions({
+	name: 'purchase-requisition'
+})
+
 const billList = ref<object[]>([])
 const billID = ref()
 const billData= ref<object>({})
