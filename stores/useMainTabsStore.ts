@@ -1,12 +1,14 @@
 import { ref, computed } from 'vue';
-import { defineStore } from 'pinia'
+import { defineStore } from 'pinia';
+import { navigateTo } from '#app';
+import type { Tab } from '../type/types';
 
-export interface Tab {
-  id: string
-  title: string
-  to: string
-  fullPath: string
-}
+// export interface Tab {
+//   id: string
+//   title: string
+//   to: string
+//   fullPath: string
+// }
 
 export const useMainTabsStore = defineStore('tabs', () => {
   const tabs = ref<Tab[]>([]);
@@ -45,7 +47,8 @@ export const useMainTabsStore = defineStore('tabs', () => {
         const next = tabs.value[idx - 1] || tabs.value[0]
         currentTabId.value = next?.id || ''
         if (next) {
-          router.push(next.to)
+          // router.push(next.to)
+          navigateTo(next.to)
         }
       }
     }
@@ -59,7 +62,8 @@ export const useMainTabsStore = defineStore('tabs', () => {
     const _tab = tabs.value.find(tab => tab.id === id);
     if (!_tab) return;
     currentTabId.value = id;
-    router.push(_tab.to)
+    // router.push(_tab.to)
+    navigateTo(_tab.to)
   }
 
   watch(tabs, (val) => {
