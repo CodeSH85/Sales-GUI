@@ -28,14 +28,18 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 
+const store = useMainTabsStore();
 const {
   tabs,
   currentTab,
   currentTabId,
-  currentTabIndex,
+  currentTabIndex
+} = storeToRefs(store);
+
+const {
   removeTab,
   setCurrentTab
-} = toRefs(useMainTabsStore());
+} = store;
 
 const isTabAtPrev = (index: number) => {
   if (currentTabIndex.value < 1) return false
