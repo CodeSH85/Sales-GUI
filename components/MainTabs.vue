@@ -17,8 +17,8 @@
           icon="i-heroicons-x-mark-16-solid" 
           color="neutral" 
           variant="ghost"
-          class="flex-shrink-0"
-          :class="currentTabId === tab.id ? 'flex' : 'hidden group/hover:block'"
+          class="flex-shrink-0 cursor-pointer"
+          :class="currentTabId === tab.id ? 'flex' : 'hidden group-hover:block'"
           @click.stop="removeTab(tab.id)"
         />
       </div>
