@@ -1,31 +1,31 @@
 <template>
-	<div class="flex items-center justify-end gap-x-2">
-		<div class="w-full flex items-center justify-end gap-x-2 pt-2 px-4">
+	<div class="flex items-center justify-end gap-x-2 border-b border-accented">
+		<div class="w-full flex items-center justify-start gap-x-2 p-2">
 			<UButton 
 				label="建立"
 				icon="i-heroicons-plus" 
 				color="primary" 
-				variant="solid" 
+				variant="soft" 
 				@click="onAddNewData"
 			/>
 			<UButton 
 				label="修改"
-				icon="i-heroicons-pencil-square-solid" 
-				color="primary" 
-				variant="subtle" 
+				icon="i-heroicons-pencil-square-solid"
+				color="neutral" 
+				variant="soft" 
 				@click="onChangeData"
 			/>
 			<UButton 
 				label="刪除"
 				icon="i-heroicons-trash" 
 				color="error" 
-				variant="subtle" 
+				variant="ghost" 
 				@click="onDeleteData"
 			/>
 		</div>
 	</div>
 	<div class="pt-0">
-		<div v-for="(section, sectionName) in groupedColModel" :key="sectionName" class="py-6 px-4 border-b border-accented">
+		<div v-for="(section, sectionName) in groupedColModel" :key="sectionName" class="py-6 px-4 border-b border-muted">
 			<div class="grid grid-cols-10 gap-4">
 				<template v-for="col, cIdx in section" :key="cIdx">
 					<div
