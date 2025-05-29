@@ -17,6 +17,11 @@
 	</div>
 </template>
 <script setup>
-
-const { catchedPages } = storeToRefs(useMainTabsStore())
+import { onMounted } from 'vue';
+const { catchedPages, tabs } = storeToRefs(useMainTabsStore())
+onMounted(() => {
+	if (tabs.value.length === 0) {
+    navigateTo('/');
+  }
+});
 </script>
