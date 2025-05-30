@@ -12,10 +12,10 @@ export const useViewModelsStore = defineStore('viewModels', () => {
   /**
    * 
    * @param {string} tabId - current tab id. 
-   * @returns {object | undefined} - Returns the ViewModel for the given tabId or undefined if it does not exist.
+   * @returns {object} - Returns the ViewModel for the given tabId or undefined if it does not exist.
    */
-  function getViewModel(tabId: string): ViewModel | undefined {
-    return viewModels.value[tabId];
+  function getViewModel(tabId: string): ViewModel | object {
+    return viewModels.value[tabId] || {};
   }
 
   /**
