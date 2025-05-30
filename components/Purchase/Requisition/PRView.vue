@@ -10,7 +10,7 @@
 								gridColumn: `span ${col.colSpan || 4}`
 							}"
 						>
-							<label class="text-base font-medium">{{ col.title }}</label>
+							<label class="text-sm font-medium">{{ col.title }}</label>
 							<template v-if="col.type === 'string' || col.type === 'number'">
 								<CommonInput
 									:type="col.dataType === 'integer' || col.dataType === 'float' ? 'number' : 'text'"
@@ -177,19 +177,23 @@ const columns = computed<TableColumns<columnsType>[]>(() => {
     accessorKey: col.key as keyof columnsType,
     header: () => h('div', {}, (col.title || '')),
 		cell: ({ row }) => {
-			return h(CommonInput, { 
-				size: 'md', 
-				value: row.getValue(col.key), 
-				class: 'h-8',
-				type: col.type === 'number' ? 'number' : 'string',
-				'onUpdate:modelValue': (value) => 
-					updateField({ 
-						key: 'items',
-						value,
-						field: col.key,
-						index: row.index
-					})
-			})
+			return h('div', {
+				class: 'p-0.5 focus-within:inset-ring-2 focus-within:ring-gray-900 rounded'
+			}, [
+				h(CommonInput, {
+					size: 'md',
+					value: row.getValue(col.key),
+					type: col.type === 'number' ? 'number' : 'text',
+					class: 'h-8 w-full border-0 !shadow-none focus:!ring-0',
+					'onUpdate:modelValue': (value) =>
+						updateField({
+							key: 'items',
+							value,
+							field: col.key,
+							index: row.index
+						})
+				})
+			]);
 		},
     minSize: 10,
   });
