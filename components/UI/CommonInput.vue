@@ -1,5 +1,5 @@
 <template>
-  <div class="grid w-full max-w-sm items-center gap-1.5">
+  <div :class="label ? 'grid w-full items-center gap-1.5' : 'contents'">
     <label v-if="label" 
       :class="[
         'text-sm text-gray-700 font-medium leading-none',
@@ -19,7 +19,9 @@
           transition-all disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:shadow-none
         `,
         sizes[size],
+        $attrs.class || ''
       ]"
+      :type="type"
       :placeholder="placeholder"
       :value="value"
       :disabled="disabled"
@@ -29,10 +31,20 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useAttrs } from 'vue';
+
+defineOptions({
+  name: 'CommonInput',
+  inheritAttrs: false,
+});
+
+// const attrs = useAttrs();
+
 interface Props {
   value?: string;
   placeholder?: string;
   label?: string;
+  type?: 'text' | 'number' | 'email' | 'password';
   disabled?: boolean;
   required?: boolean;
   size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs';
@@ -42,6 +54,7 @@ const props = withDefaults(defineProps<Props>(), {
   value: '',
   placeholder: '',
   label: '',
+  type: 'text',
   disabled: false,
   required: false,
   size: 'md',
