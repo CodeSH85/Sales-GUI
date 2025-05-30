@@ -15,7 +15,7 @@
           bg-transparent text-gray-900
           border border-gray-200 rounded-md shadow-sm
           invalid:border-red-500 invalid:text-red-600
-          focus:border-2 focus:border-gray-900 focus:invalid:border-2 focus:invalid:border-red-500 focus-visible:outline-none placeholder:text-muted
+          focus:ring-2 focus:ring-gray-900 focus:invalid:ring-2 focus:invalid:ring-red-500 focus-visible:outline-none placeholder:text-muted
           transition-all disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:shadow-none
         `,
         sizes[size],
