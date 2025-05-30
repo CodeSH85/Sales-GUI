@@ -18,6 +18,12 @@ export default defineNuxtConfig({
       strictPort: true,
     },
   },
+  components: [
+    {
+      path: '~/components',
+      pathPrefix: false,
+    }
+  ],
   modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/ui', '@vueuse/nuxt', '@pinia/nuxt'],
   css: ['~/assets/css/main.css']
 })

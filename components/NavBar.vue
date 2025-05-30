@@ -2,7 +2,8 @@
   <div class="w-full h-full flex flex-col">
     <div class="flex-grow">
       <UNavigationMenu orientation="vertical" 
-        :items="mainNavItems" 
+        :items="mainNavItems"
+        color="neutral"
         class="p-1 data-[orientation=vertical]:w-full"
         :ui="{
           link: 'text-lg',
