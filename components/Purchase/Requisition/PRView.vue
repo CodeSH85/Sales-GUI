@@ -12,13 +12,11 @@
 						>
 							<label class="text-base font-medium">{{ col.title }}</label>
 							<template v-if="col.type === 'string' || col.type === 'number'">
-								<UInput 
-									size="md"
-									class="w-full"
-									:type="col.type === 'number' ? 'number' : 'text'"
+								<CommonInput
+									:type="col.dataType === 'integer' || col.dataType === 'float' ? 'number' : 'text'"
 									:placeholder="col.placeholder || col.title"
-									:modelValue="viewModel.values[col.key]"
-									@update:modelValue="(value) => updateField({ key: col.key, value })"
+									:value="viewModel.values[col.key]"
+									@update:value="(value) => updateField({ key: col.key, value })" 
 								/>
 							</template>
 							<template v-else-if="col.type === 'select'">
@@ -79,7 +77,7 @@ import { onMounted } from 'vue';
 import { useViewModelsStore } from '~/stores/useViewModelsStore';
 import type { Item, ViewModel } from '~/type/types';
 import type { TableColumns } from '~/type/table/tableTypes';
-import CommonInput from '~/components/UI/CommonInput.vue';
+// import CommonInput from '~/components/UI/CommonInput.vue';
 
 const {
   setViewModel,
@@ -139,7 +137,8 @@ const updateField = useDebounceFn(({ key, value, field, index }) => {
 
 /* ===== Table ===== */
 const table = useTemplateRef('table')
-const UInput = resolveComponent('UInput')
+// const UInput = resolveComponent('UInput')
+const CommonInput = resolveComponent('CommonInput')
 const UCheckbox = resolveComponent('UCheckbox')
 
 function onAddRowData() {
@@ -178,13 +177,11 @@ const columns = computed<TableColumns<columnsType>[]>(() => {
     accessorKey: col.key as keyof columnsType,
     header: () => h('div', {}, (col.title || '')),
 		cell: ({ row }) => {
-			return h(UInput, { 
+			return h(CommonInput, { 
 				size: 'md', 
-				modelValue: row.getValue(col.key), 
-				class: 'w-full h-full',
-				// variant: 'ghost',
-				type: col.type || 'string',
-				ui: { base: 'text-base h-8 rounded-sm ring-0' },
+				value: row.getValue(col.key), 
+				class: 'h-8',
+				type: col.type === 'number' ? 'number' : 'string',
 				'onUpdate:modelValue': (value) => 
 					updateField({ 
 						key: 'items',
