@@ -118,9 +118,12 @@ const groupedColModel = computed(() => {
 });
 
 /* ===== Function ===== */
+const { file, getFile } = useFiles();
 async function onSelectBillID(value: string) {
-	const result = await $fetch(`/api/get/${value}`)
-	viewModel.value.values = result;
+	// const result = await $fetch(`/api/get/${value}`)
+	// viewModel.value.values = result;
+	const result = getFile(value);
+	console.log('onSelectBillID', value, result);
 }
 
 const updateField = useDebounceFn(({ key, value, field, index }) => {
