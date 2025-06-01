@@ -1,6 +1,10 @@
+mod commands;
+use commands::{read_file};
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
   tauri::Builder::default()
+    .invoke_handler(tauri::generate_handler![read_file])
     .setup(|app| {
       if cfg!(debug_assertions) {
         app.handle().plugin(
@@ -11,6 +15,7 @@ pub fn run() {
       }
       Ok(())
     })
+    // .invoke_handler(tauri::generate_handler![read_file])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }
