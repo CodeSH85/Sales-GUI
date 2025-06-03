@@ -1,23 +1,32 @@
-import { ref } from 'vue';
-import { invoke } from '@tauri-apps/api/core';
+import { ref } from 'vue'
+import { invoke } from '@tauri-apps/api/core'
 import { open } from '@tauri-apps/plugin-dialog';
-import { open as fsOpen, exists, BaseDirectory } from '@tauri-apps/plugin-fs';
 
 export function useFiles() {
   const file = ref<object>({})
 
-  async function openSelector() {
-    const filePath = await open({
-      multiple: false,
-      directory: false,
-    });
-    if (!filePath) {
-      console.warn('No file selected', filePath);
-      return;
+  /**
+   * 
+   * @returns {Promise<string | null | undefined>} Returns the path of the selected file or null if no file was selected.
+   */
+  async function openFile(): Promise<string | null | undefined> {
+    try {
+      const result = await open({
+        multiple: false,
+        filters: [
+          {
+            name: 'excel files',
+            extensions: ['xls', 'xlsx'],
+          }
+        ]
+      })
+      return result
+    } catch (error) {
+      console.error('Error fetching files:', error)
     }
   }
 
-  async function readFile(id: string) {
+  async function getFile(id: string) {
     try {
       const result = await invoke<string>('read_file', { id })
       console.log('Files fetched successfully:', id, result)
@@ -32,7 +41,7 @@ export function useFiles() {
 
   return {
     file,
-    openSelector,
-    readFile,
+    openFile,
+    getFile,
   }
 }

@@ -5,7 +5,7 @@
         <CommonDropdownList
           :items="[
             { label: '新增空白表單', icon: 'i-heroicons-plus', action: onAddNewBlank },
-            { label: '匯入 Excel (CSV)', icon: 'i-heroicons-arrow-right-end-on-rectangle', action: onImportCSV },
+            { label: '匯入 Excel (CSV)', icon: 'i-heroicons-arrow-right-end-on-rectangle', action: onImportExcel },
           ]"
           label="新增"
           icon="i-heroicons-plus"
@@ -36,9 +36,7 @@
 </template>
 <script setup lang="ts">
 
-const {
-  openSelector
-} = useFiles()
+const { openFile } = useFiles();
 
 async function onAddNewBlank() {
 	try {
@@ -59,8 +57,8 @@ function onDeleteData() {
 	console.log('Delete data')
 }
 
-async function onImportCSV() {
-	console.log('import excel')
-  openSelector()
+async function onImportExcel() {
+  const jsonData = await openFile();
+  console.log(jsonData);
 }
 </script>
