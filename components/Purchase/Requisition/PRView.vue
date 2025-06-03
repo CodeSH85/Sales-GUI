@@ -1,6 +1,6 @@
 <template>
-  <div>
-		<div class="pt-0">
+	<NuxtLayout name="content">
+		<div>
 			<div v-for="(section, sectionName) in groupedColModel" :key="sectionName" class="py-6 px-4 border-b border-muted">
 				<div class="grid grid-cols-10 gap-4">
 					<template v-for="col, cIdx in section" :key="cIdx">
@@ -70,14 +70,14 @@
 				</div>
 			</div>
 		</div>
-  </div>
+	</NuxtLayout>
 </template>
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { h, resolveComponent, ref, useTemplateRef, onMounted } from 'vue'
+import { useDebounceFn, useEventListener } from '@vueuse/core'
 import { useViewModelsStore } from '~/stores/useViewModelsStore';
 import type { Item, ViewModel } from '~/type/types';
 import type { TableColumns } from '~/type/table/tableTypes';
-// import CommonInput from '~/components/UI/CommonInput.vue';
 
 const {
   setViewModel,
@@ -105,7 +105,6 @@ const viewModel = computed(() => {
 	return getViewModel('purchase-requisition')
 });
 
-
 const groupedColModel = computed(() => {
   const grouped: Record<string, Item[]> = {};
 	if (!viewModel.value?.items) return grouped;
@@ -119,8 +118,10 @@ const groupedColModel = computed(() => {
 });
 
 /* ===== Function ===== */
+const { file, getFile } = useFiles();
 async function onSelectBillID(value: string) {
-	const result = await $fetch(`/api/get/${value}`)
+	// const result = await $fetch(`/api/get/${value}`)
+	const result = await getFile(value);
 	viewModel.value.values = result;
 }
 

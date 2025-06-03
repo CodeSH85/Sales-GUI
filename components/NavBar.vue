@@ -6,7 +6,7 @@
         color="neutral"
         class="p-1 data-[orientation=vertical]:w-full"
         :ui="{
-          link: 'text-lg',
+          link: 'text-base',
         }"
       >
       <template #item="{ item, index, active }">
@@ -22,14 +22,14 @@
       </UNavigationMenu>
     </div>
     <div class="flex-shrink-0 border-t border-[#B5B5B5]">
-      <UNavigationMenu orientation="vertical" 
+      <!-- <UNavigationMenu orientation="vertical" 
         :items="otherItems" 
         class="p-1 data-[orientation=vertical]:w-full"
         :ui="{
           label: 'font-normal',
-          link: 'text-lg'
+          link: 'text-base',
         }"
-      />
+      /> -->
     </div>
   </div>
 </template>
