@@ -40,7 +40,8 @@
   <slot />
 </template>
 <script setup lang="ts">
-import { open } from '@tauri-apps/plugin-dialog';
+
+const { openFile } = useFiles();
 
 async function onAddNewData() {
 	try {
@@ -62,11 +63,7 @@ function onDeleteData() {
 }
 
 async function onImportExcel() {
-	console.log('import excel')
-  const file = await open({
-    multiple: false,
-    directory: false,
-  });
-  console.log(file);
+  const filePath = await openFile();
+  console.log(filePath);
 }
 </script>
