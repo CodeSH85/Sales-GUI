@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { invoke } from '@tauri-apps/api/core'
 import { open } from '@tauri-apps/plugin-dialog';
+import { open as openFilePlugin } from '@tauri-apps/plugin-fs';
 
 export function useFiles() {
   const file = ref<object>({})
@@ -11,7 +12,7 @@ export function useFiles() {
    */
   async function openFile(): Promise<string | null | undefined> {
     try {
-      const result = await open({
+      const filePath = await open({
         multiple: false,
         filters: [
           {
@@ -20,7 +21,20 @@ export function useFiles() {
           }
         ]
       })
-      return result
+      if (!filePath) {
+        return filePath
+      }
+
+      const file = await openFilePlugin(filePath, {
+        read: true
+      });
+
+      const stat = await file.stat();
+      const buf = new Uint8Array(stat.size);
+      await file.read(buf);
+      const textContents = new TextDecoder().decode(buf);
+      await file.close();
+      return textContents;
     } catch (error) {
       console.error('Error fetching files:', error)
     }
