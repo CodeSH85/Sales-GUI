@@ -1,7 +1,5 @@
 import { ref } from 'vue'
-import { invoke } from '@tauri-apps/api/tauri'
-
-const invoke = window.__TAURI__.invoke
+import { invoke } from '@tauri-apps/api/core'
 
 export function useFiles() {
   const file = ref<object>({})
