@@ -74,15 +74,14 @@
 </template>
 <script setup lang="ts">
 import { h, resolveComponent, ref, useTemplateRef, onMounted } from 'vue'
-import { useDebounceFn, useEventListener } from '@vueuse/core'
-import { useViewModelsStore } from '~/stores/useViewModelsStore';
+import { useDebounceFn } from '@vueuse/core'
 import type { Item, ViewModel } from '~/type/types';
 import type { TableColumns } from '~/type/table/tableTypes';
 
 const {
   setViewModel,
   getViewModel,
-} = useViewModelsStore();
+} = useViewModels();
 
 const billList = ref<object[]>([])
 

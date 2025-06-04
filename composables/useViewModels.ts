@@ -1,9 +1,7 @@
 import { ref, computed } from 'vue';
-import { defineStore } from 'pinia';
 import type { ViewModel, Item } from '../type/types';
 
-
-export const useViewModelsStore = defineStore('viewModels', () => {
+export function useViewModels() {
   const viewModels = ref<Record<string, ViewModel>>({});
   // {
   //   [key: string]: viewModel
@@ -98,4 +96,4 @@ export const useViewModelsStore = defineStore('viewModels', () => {
     updateValue,
     removeItem
   }
-})
+}
