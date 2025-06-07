@@ -13,6 +13,7 @@
   >
     <slot name="default">
       <slot name="prepend"></slot>
+      <UIcon v-if="icon" :name="icon" />
       <label>
         {{ label }}
       </label>
