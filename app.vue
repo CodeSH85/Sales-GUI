@@ -1,11 +1,9 @@
 <template>
-  <UApp>
-    <NuxtLayout name="default">
-      <NuxtPage />
-    </NuxtLayout>
-  </UApp>
-  <!-- <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div> -->
+  <ColorScheme>
+    <UApp>
+      <NuxtLayout name="default">
+        <NuxtPage />
+      </NuxtLayout>
+    </UApp>
+  </ColorScheme>
 </template>
