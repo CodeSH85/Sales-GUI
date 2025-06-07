@@ -1,5 +1,6 @@
 mod commands;
 use commands::read_file;
+use commands::parse_excel;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -7,6 +8,7 @@ pub fn run() {
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![read_file])
+        .invoke_handler(tauri::generate_handler![parse_excel])
         .setup(|app| {
             if cfg!(debug_assertions) {
                 app.handle().plugin(
