@@ -1,16 +1,17 @@
 <template>
-  <div class="w-full h-10 flex items-center overflow-x-auto">
+  <div class="w-full h-9 flex items-center overflow-x-auto">
     <div v-for="tab, tIdx in tabs" :key="tab.id"
-      class="w-[200px] flex items-center justify-between gap-x-1.5 px-1 border-accented cursor-pointer group transition-all"
+      class="w-[200px] flex items-center justify-between gap-x-1.5 px-1 cursor-pointer group transition-all"
       :class="[
-        currentTabId === tab.id ? 'h-full bg-white border-x tab-rounded border-b-white' : 'h-[80%] ',
+        currentTabId === tab.id ? 'h-full bg-tab border-x border-surface-400 border-b-surface' : 'h-[80%] border-surface-300',
+        tIdx === 0 ? 'border-l-0' : '',
         isTabAtPrev(tIdx) ? 'border-none' : 'border-r'
       ]"
       @click="setCurrentTab(tab.id)"
     >
       <div 
-        class="w-full h-full flex items-center justify-between gap-x-1.5 pr-2 pl-3 text-sm whitespace-nowrap"
-        :class="currentTabId === tab.id ? 'font-medium' : 'hover:bg-[#F5F5F5] text-gray-500'"
+        class="w-full h-full flex items-center justify-between gap-x-1.5 pr-1.5 pl-4 text-sm whitespace-nowrap"
+        :class="currentTabId === tab.id ? 'font-medium text-default' : 'hover:bg-tab-hover text-dimmed'"
       >
         {{ tab.title }}
         <UButton
