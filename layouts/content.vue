@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-end gap-x-2 border-b border-accented">
+  <div class="h-11 flex items-center justify-end gap-x-2 bg-surface border-b border-surface-200">
     <slot name="toolbar">
       <div class="w-full flex items-center justify-start gap-x-2 p-2">
         <UButton 
