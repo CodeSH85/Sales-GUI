@@ -12,10 +12,11 @@
       :class="[
         `peer
           w-full flex items-center
-          bg-transparent text-gray-900
-          border border-gray-200 rounded-md shadow-sm
+          bg-component text-component-foreground
+          border border-component-border rounded-md
           invalid:border-red-500 invalid:text-red-600
-          focus:ring-2 focus:ring-gray-900 focus:invalid:ring-2 focus:invalid:ring-red-500 focus-visible:outline-none placeholder:text-muted
+          focus:ring-2 focus:ring-surface-900 focus:invalid:ring-2 focus:invalid:ring-red-500 focus-visible:outline-none 
+          placeholder:text-muted
           transition-all disabled:cursor-not-allowed disabled:bg-gray-50 disabled:text-gray-500 disabled:shadow-none
         `,
         sizes[size],
