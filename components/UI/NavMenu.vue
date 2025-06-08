@@ -8,12 +8,12 @@
       >
         <UIcon v-if="group.icon" 
           :name="group.icon" 
-          class="size-4" 
+          class="!size-4" 
         />
-        <span>{{ group.title }}</span>
+        <span>{{ group.label }}</span>
         <UIcon 
           :name="openedGroups.includes(gIdx) ? 'i-heroicons-chevron-up' : 'i-heroicons-chevron-down'" 
-          class="size-4 ml-auto" 
+          class="!size-4 ml-auto" 
         />
       </div>
       <Transition
@@ -33,7 +33,7 @@
             class="h-8 flex items-center px-2.5 gap-x-2 text-sm font-medium text-default hover:bg-surface-100 active:bg-surface-200 cursor-pointer rounded-md"
             @click.stop="onClickChild(item)"
           >
-            {{ item.title }}
+            {{ item.label }}
           </li>
         </ul>
       </Transition>
@@ -44,13 +44,13 @@
 import { ref } from 'vue'
 
 interface MenuItem {
-  title: string
+  label: string
   icon?: string
   path?: string
 }
 
 interface MenuGroup {
-  title: string
+  label: string
   icon?: string
   path?: string
   defaultOpen?: boolean
@@ -66,7 +66,7 @@ interface Props {
 const props = defineProps<Props>()
 
 const emits = defineEmits<{
-  (e: 'clickChild', item: MenuItem): void
+  (e: 'click-child', item: MenuItem): void
 }>()
 
 const openedGroups = ref<number[]>(props.items.map((item, i) => item.defaultOpen ? i : -1).filter(i => i !== -1))
@@ -80,6 +80,6 @@ function onToggle(index: number) {
 }
 
 function onClickChild(item: MenuItem) {
-  emits('clickChild', item)
+  emits('click-child', item)
 }
 </script>

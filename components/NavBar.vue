@@ -17,7 +17,6 @@ const {
 } = useMainTabsStore();
 
 function onClickNavItem(item: NavigationMenuItem) {
-  console.log(item)
   if (!item.path) return
 
   const id = item.path
@@ -27,7 +26,7 @@ function onClickNavItem(item: NavigationMenuItem) {
 
   addTab({
     id,
-    title: item.title || '',
+    title: item.label || '',
     to: item.path,
     fullPath: item.path
   })
@@ -35,20 +34,20 @@ function onClickNavItem(item: NavigationMenuItem) {
 
 const mainNavItems = ref<NavigationMenuItem[]>([
   {
-    title: '採購作業',
+    label: '採購作業',
     // icon: 'i-lucide-book-open',
     // active: true,
     defaultOpen: true,
     children: [
       {
-        title: '請購單',
+        label: '請購單',
         description: '',
         icon: 'i-lucide-file-text',
         // to: '/Purchase/Requisition'
         path: '/Purchase/Requisition'
       },
       {
-        title: '進貨管理',
+        label: '進貨管理',
         description: '',
         icon: 'i-lucide-file-text',
         path: '/Purchase/Order'
@@ -56,26 +55,26 @@ const mainNavItems = ref<NavigationMenuItem[]>([
     ]
   },
   {
-    title: '庫存管理',
+    label: '庫存管理',
     children: []
   },
   {
-    title: '訂單管理',
+    label: '訂單管理',
     icon: '',
     children: []
   },
   {
-    title: '應收帳款管理',
+    label: '應收帳款管理',
     icon: '',
     children: []
   },
   {
-    title: '應付帳款管理',
+    label: '應付帳款管理',
     icon: '',
     children: []
   },
   {
-    title: '會計分錄',
+    label: '會計分錄',
     icon: '',
     path: '/Accounting/Entry',
     children: [],
