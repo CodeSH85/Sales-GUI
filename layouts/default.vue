@@ -7,7 +7,7 @@
 			<div class="w-full h-9 flex-shrink-0 border-b border-surface-300 bg-tabbar">
 				<MainTabs></MainTabs>
 			</div>
-			<div class="w-full flex-grow bg-surface overflow-auto">
+			<div class="w-full flex-grow flex flex-col bg-surface overflow-hidden">
 				<!-- <slot /> -->
 				<keep-alive :include="catchedPages">
 					<NuxtPage />

@@ -1,7 +1,7 @@
 <template>
-  <div class="h-11 flex items-center justify-end gap-x-2 bg-surface border-b border-surface-200">
+  <div class="h-11 shrink-0 flex items-center justify-end gap-x-2 bg-surface border-b border-surface-200">
     <slot name="toolbar">
-      <div class="w-full flex items-center justify-start gap-x-2 p-2">
+      <div class="w-full flex items-center justify-start gap-x-2 px-4">
         <CommonDropdownList
           :items="[
             { label: '新增空白表單', icon: 'i-heroicons-plus', action: onAddNewBlank },
@@ -30,7 +30,9 @@
       </div>
     </slot>
   </div>
-  <slot />
+  <div class="grow overflow-auto bg-surface px-6">
+    <slot />
+  </div>
 </template>
 <script setup lang="ts">
 import { open } from '@tauri-apps/plugin-dialog';
