@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # 讓你手動觸發
+  workflow_dispatch:
 
 jobs:
   build:
@@ -17,20 +17,26 @@ jobs:
         with:
           node-version: 18
 
+      - name: Install pnpm
+        run: npm install -g pnpm
+
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
           override: true
 
-      - name: Install frontend dependencies
-        run: npm install
+      - name: Add Rust target
+        run: rustup target add x86_64-pc-windows-msvc
 
-      - name: Install Tauri CLI
-        run: cargo install tauri-cli
+      - name: Install frontend dependencies
+        run: pnpm install
+
+      # Optional: setup MSVC build tools if needed
+      - uses: microsoft/setup-msbuild@v1.3.1
 
       - name: Build the Tauri App
-        run: npm run tauri build
+        run: pnpm tauri build
 
       - name: Upload built .exe as artifact
         uses: actions/upload-artifact@v4
