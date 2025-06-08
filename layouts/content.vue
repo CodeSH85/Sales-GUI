@@ -2,35 +2,28 @@
   <div class="h-11 flex items-center justify-end gap-x-2 bg-surface border-b border-surface-200">
     <slot name="toolbar">
       <div class="w-full flex items-center justify-start gap-x-2 p-2">
-        <UButton 
-          label="建立"
-          icon="i-heroicons-plus" 
-          color="primary" 
-          variant="solid" 
+        <CommonDropdownList
+          :items="[
+            { label: '新增空白表單', icon: 'i-heroicons-plus', action: onAddNewBlank },
+            { label: '匯入 Excel (CSV)', icon: 'i-heroicons-arrow-right-end-on-rectangle', action: onImportCSV },
+          ]"
+          label="新增"
+          icon="i-heroicons-plus"
           size="sm"
-          @click="onAddNewData"
+          :showDropdownIcon="false"
         />
-        <UButton 
-          label="匯入"
-          icon="i-heroicons-arrow-down-on-square" 
-          color="neutral" 
-          variant="ghost" 
-          size="sm"
-          @click="onImportExcel"
-        />
-        <UButton 
-          label="修改"
+        <CommonButton
+          label="編輯"
           icon="i-heroicons-pencil-square-solid"
-          color="neutral" 
-          variant="ghost" 
           size="sm"
+          variant="text" 
           @click="onChangeData"
         />
-        <UButton 
+        <CommonButton 
           label="刪除"
           icon="i-heroicons-trash" 
           color="error" 
-          variant="ghost" 
+          variant="text" 
           size="sm"
           @click="onDeleteData"
         />
@@ -42,7 +35,7 @@
 <script setup lang="ts">
 import { open } from '@tauri-apps/plugin-dialog';
 
-async function onAddNewData() {
+async function onAddNewBlank() {
 	try {
 		const result = await $fetch('/api/create/PO', {
       method: 'POST',
@@ -61,7 +54,7 @@ function onDeleteData() {
 	console.log('Delete data')
 }
 
-async function onImportExcel() {
+async function onImportCSV() {
 	console.log('import excel')
   const file = await open({
     multiple: false,
