@@ -10,14 +10,27 @@
       variants[variant][color],
       $attrs.class || ''
     ]"
+    @click="$emit('click')"
   >
     <slot name="default">
-      <slot name="prepend"></slot>
+      <slot name="prepend">
+        <!-- TODO: hardcoded icon for now, should be dynamic -->
+        <UIcon v-if="prepend && prepend.startsWith('i-heroicons')" :name="prepend" />
+        <span v-else-if="prepend">
+          {{ prepend }}
+        </span>
+      </slot>
       <UIcon v-if="icon" :name="icon" />
       <label>
         {{ label }}
       </label>
-      <slot name="append"></slot>
+      <slot name="append">
+        <!-- TODO: hardcoded icon for now, should be dynamic -->
+        <UIcon v-if="append && append.startsWith('i-heroicons')" :name="append" />
+        <span v-else-if="append">
+          {{ append }}
+        </span>
+      </slot>
     </slot>
   </button>
 </template>
