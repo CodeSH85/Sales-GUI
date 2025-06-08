@@ -18,12 +18,17 @@ export default defineNuxtConfig({
       strictPort: true,
     },
   },
+  colorMode: {
+    classSuffix: '',
+    preference: 'system',
+    fallback: 'light'
+  },
   components: [
     {
       path: '~/components',
       pathPrefix: false,
     }
   ],
-  modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/ui', '@vueuse/nuxt', '@pinia/nuxt'],
+  modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/ui', '@vueuse/nuxt', '@pinia/nuxt', '@nuxtjs/color-mode'],
   css: ['~/assets/css/main.css']
 })

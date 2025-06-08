@@ -1,88 +1,86 @@
 <template>
 	<NuxtLayout name="content">
-		<div>
-			<div v-for="(section, sectionName) in groupedColModel" :key="sectionName" class="py-6 px-4 border-b border-muted">
-				<div class="grid grid-cols-10 gap-4">
-					<template v-for="col, cIdx in section" :key="cIdx">
-						<div
-							class="flex flex-col gap-1 items-start"
-							:style="{
-								gridColumn: `span ${col.colSpan || 4}`
-							}"
-						>
-							<label class="text-sm font-medium">{{ col.title }}</label>
-							<template v-if="col.type === 'string' || col.type === 'number'">
-								<CommonInput
-									:type="col.dataType === 'integer' || col.dataType === 'float' ? 'number' : 'text'"
-									:placeholder="col.placeholder || col.title"
-									:value="viewModel.values[col.key]"
-									@update:value="(value) => updateField({ key: col.key, value })" 
+		<div v-for="(section, sectionName) in groupedColModel" :key="sectionName" class="flex flex-col gap-y-6 py-6 border-b border-surface-200">
+			<label class="text-base font-semibold">{{ sectionName }}</label>
+			<div class="grid grid-cols-10 gap-4">
+				<template v-for="col, cIdx in section" :key="cIdx">
+					<div
+						class="flex flex-col gap-1 items-start"
+						:style="{
+							gridColumn: `span ${col.colSpan || 4}`
+						}"
+					>
+						<label class="text-sm font-medium">{{ col.title }}</label>
+						<template v-if="col.type === 'string' || col.type === 'number'">
+							<CommonInput
+								:type="col.dataType === 'integer' || col.dataType === 'float' ? 'number' : 'text'"
+								:placeholder="col.placeholder || col.title"
+								:value="viewModel.values[col.key]"
+								@update:value="(value) => updateField({ key: col.key, value })" 
+							/>
+						</template>
+						<template v-else-if="col.type === 'select'">
+							<template v-if="col.searchable">
+								<USelectMenu 
+									:items="billList" 
+									v-model="viewModel.values[col.key]"
+									size="md" 
+									class="w-full"
+									:value-key="'key'" 
+									:label-key="'title'"
+									@update:modelValue="(value) => onSelectBillID(value)"
+									/>
+							</template>
+						</template>
+						<template v-else-if="col.type === 'table'">
+							<div class="flex items-center gap-x-4">
+								<UButton 
+									label="新增項目"
+									icon="i-heroicons-plus" 
+									color="primary" 
+									variant="solid" 
+									@click="onAddRowData"
 								/>
-							</template>
-							<template v-else-if="col.type === 'select'">
-								<template v-if="col.searchable">
-									<USelectMenu 
-										:items="billList" 
-										v-model="viewModel.values[col.key]"
-										size="md" 
-										class="w-full"
-										:value-key="'key'" 
-										:label-key="'title'"
-										@update:modelValue="(value) => onSelectBillID(value)"
-										/>
-								</template>
-							</template>
-							<template v-else-if="col.type === 'table'">
-								<div class="flex items-center gap-x-4">
-									<UButton 
-										label="新增項目"
-										icon="i-heroicons-plus" 
-										color="primary" 
-										variant="solid" 
-										@click="onAddRowData"
-									/>
-									<UButton 
-										label="刪除"
-										icon="i-heroicons-trash" 
-										color="error" 
-										variant="subtle" 
-										@click="onDeleteRowData"
-									/>
-								</div>
-								<div class="w-full h-full overflow-auto">
-									<UTable 
-										ref="table"
-										:columns="columns"
-										:data="viewModel.values.items" 
-										sticky
-										class="flex-1"
-										:ui="{
-											thead: 'border border-[#B5B5B5]',
-											th: 'border border-[#B5B5B5]  max-w-[250px] text-nowrap text-base',
-											tr: 'p-0',
-											td: 'border border-accented p-0 [&:has([role=checkbox])]:px-4',
-										}"
-									/>
-								</div>
-							</template>
-						</div>
-					</template>
-				</div>
+								<UButton 
+									label="刪除"
+									icon="i-heroicons-trash" 
+									color="error" 
+									variant="subtle" 
+									@click="onDeleteRowData"
+								/>
+							</div>
+							<div class="w-full h-full overflow-auto">
+								<UTable 
+									ref="table"
+									:columns="columns"
+									:data="viewModel.values.items" 
+									sticky
+									class="flex-1"
+									:ui="{
+										thead: 'border border-[#B5B5B5]',
+										th: 'border border-[#B5B5B5]  max-w-[250px] text-nowrap text-base',
+										tr: 'p-0',
+										td: 'border border-accented p-0 [&:has([role=checkbox])]:px-4',
+									}"
+								/>
+							</div>
+						</template>
+					</div>
+				</template>
 			</div>
 		</div>
 	</NuxtLayout>
 </template>
 <script setup lang="ts">
 import { h, resolveComponent, ref, useTemplateRef, onMounted } from 'vue'
-import { useDebounceFn, useEventListener } from '@vueuse/core'
-import { useViewModelsStore } from '~/stores/useViewModelsStore';
+import { useDebounceFn } from '@vueuse/core'
 import type { Item, ViewModel } from '~/type/types';
 import type { TableColumns } from '~/type/table/tableTypes';
 
 const {
   setViewModel,
   getViewModel,
-} = useViewModelsStore();
+} = useViewModels();
 
 const billList = ref<object[]>([])
 
@@ -259,21 +257,21 @@ const itemColModel: Item[] = [
 ];
 
 const colModel: Item[] = [
-	{
-		key: 'id',
-		title: '選擇採購單',
-    dataType: 'character',
-		type: 'select',
-		searchable: true,
-		colSpan: 2, 
-		section: '單號'
-	},
+	// {
+	// 	key: 'id',
+	// 	title: '選擇採購單',
+  //   dataType: 'character',
+	// 	type: 'select',
+	// 	searchable: true,
+	// 	colSpan: 2, 
+	// 	section: '單號'
+	// },
 	{
 		key: 'orderDate',
 		title: '日期',
     dataType: 'character',
 		type: 'string',
-		colSpan: 1, 
+		colSpan: 2, 
 		section: '基本資訊'
 	},
 	{
@@ -281,7 +279,7 @@ const colModel: Item[] = [
 		title: '部門',
     dataType: 'character',
 		type: 'string',
-		colSpan: 1, 
+		colSpan: 2, 
 		section: '基本資訊'
 	},
 	{
@@ -310,11 +308,11 @@ const colModel: Item[] = [
 	},
 	{
 		key: 'items',
-    title: '項目明細',
+    title: '',
     dataType: 'array',
     type: 'table',
     colSpan: 10,
-    section: '項目明細',
+    section: '請購項目',
 		items: itemColModel,
 	}
 ];
