@@ -35,7 +35,7 @@
 
 ## 畫面設計
 
- ![](./screenshots/sales.png)
+ ![](./screenshots/Frame1.png)
 
 ## 如何啟動專案
 
