@@ -1,6 +1,5 @@
 # Sales-GUI
 ![Platform](https://img.shields.io/badge/platform-tauri-blue)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 🚀 個人專案 |
 
@@ -19,7 +18,7 @@
 | ------------ | ------ | ------------- |
 | 銷售、進貨、庫存資料管理 | 🟡 開發中 | 新增/編輯/查詢/刪除訂單 |
 | 會計分錄         | ⚪ 待開發  | 根據訂單資料自動建立分錄  |
-| Excel 匯入功能   | 🟢 已完成 | 支援匯入商品與進貨紀錄   |
+| Excel 匯入功能   | 🟢 已完成 | 支持匯入本地Excel資料   |
 | Excel 匯出功能   | ⚪ 待開發  |               |
 
 ## 使用技術
@@ -66,7 +65,3 @@ pnpm preview
 ├── stores/
 ├── types/
 ```
-
-## License
-
-本專案採用 MIT 授權，詳見 [LICENSE](./LICENSE)。
