@@ -24,11 +24,14 @@
       ]"
       :type="type"
       :placeholder="placeholder"
-      :value="value"
+      :value="inputValue"
       :disabled="disabled"
       :required="required"
       @input="onInput"
+      @focus="onFocus"
+      @blur="onBlur"
     />
+    <!-- v-bind="$attrs" -->
   </div>
 </template>
 <script setup lang="ts">
@@ -42,17 +45,19 @@ defineOptions({
 // const attrs = useAttrs();
 
 interface Props {
-  value?: string;
-  placeholder?: string;
-  label?: string;
-  type?: 'text' | 'number' | 'email' | 'password';
-  disabled?: boolean;
-  required?: boolean;
-  size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs';
+  value?: string
+  modelValue?: string
+  placeholder?: string
+  label?: string
+  type?: 'text' | 'number' | 'email' | 'password'
+  disabled?: boolean
+  required?: boolean
+  size?: 'xl' | 'lg' | 'md' | 'sm' | 'xs'
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  value: '',
+  // value: '',
+  // modelValue: '',
   placeholder: '',
   label: '',
   type: 'text',
@@ -61,11 +66,20 @@ const props = withDefaults(defineProps<Props>(), {
   size: 'md',
 })
 
-const emit = defineEmits(['update:value'])
+const emit = defineEmits(['update:value', 'update:modelValue', 'focus', 'blur']);
+
+const inputValue = computed(() => props.value ?? props.modelValue ?? '')
 
 function onInput(event: Event) {
   const input = event.target as HTMLInputElement;
+  emit('update:modelValue', input.value);
   emit('update:value', input.value);
+}
+function onFocus(event: FocusEvent) {
+  emit('focus', event);
+}
+function onBlur(event: FocusEvent) {
+  emit('blur', event);
 }
 
 const sizes = {
