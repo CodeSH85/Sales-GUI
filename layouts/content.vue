@@ -5,7 +5,7 @@
         <CommonDropdownList
           :items="[
             { label: '新增空白表單', icon: 'i-heroicons-plus', action: onAddNewBlank },
-            { label: '匯入 Excel (CSV)', icon: 'i-heroicons-arrow-right-end-on-rectangle', action: onImportExcel },
+            { label: '匯入 Excel', icon: 'i-heroicons-arrow-right-end-on-rectangle', action: onImportExcel },
           ]"
           label="新增"
           icon="i-heroicons-plus"
@@ -20,8 +20,14 @@
           @click="onChangeData"
         />
         <CommonButton 
+          label="儲存"
+          color="success" 
+          variant="text" 
+          size="sm"
+          @click="onSaveData"
+        />
+        <CommonButton 
           label="刪除"
-          icon="i-heroicons-trash" 
           color="error" 
           variant="text" 
           size="sm"
@@ -94,8 +100,16 @@ const {
 
 const { openFile, readFile } = useFiles();
 
-async function onAddNewBlank() {
-	try {
+function onAddNewBlank() {
+	
+}
+
+function onChangeData() {
+	console.log('Change data')
+}
+async function onSaveData() {
+	console.log('Save data')
+  try {
 		const result = await $fetch('/api/create/PO', {
       method: 'POST',
 			// body: viewModel.value.values
@@ -104,10 +118,6 @@ async function onAddNewBlank() {
 	} catch (err) {
 		console.error('Error creating PO:', err)
 	}
-}
-
-function onChangeData() {
-	console.log('Change data')
 }
 function onDeleteData() {
 	console.log('Delete data')
