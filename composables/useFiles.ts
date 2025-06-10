@@ -55,7 +55,7 @@ export function useFiles() {
     }
   }
 
-  async function getFile(id: string) {
+  async function readFile(id: string) {
     try {
       const result = await invoke<string>('read_file', { id })
       console.log('Files fetched successfully:', id, result)
@@ -71,6 +71,6 @@ export function useFiles() {
   return {
     file,
     openFile,
-    getFile,
+    readFile,
   }
 }
