@@ -1,5 +1,4 @@
 use std::{fs, path::PathBuf};
-use serde::{Deserialize, Serialize};
 use crate::commands::get_base_path;
 use tauri::AppHandle;
 
