@@ -1,5 +1,4 @@
 use std::fs;
-use std::path::PathBuf;
 use crate::commands::get_base_path;
 use tauri::AppHandle;
 

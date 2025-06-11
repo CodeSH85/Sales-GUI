@@ -1,6 +1,7 @@
 use std::path::PathBuf;
 use tauri::AppHandle;
 
+#[allow(unused_variables)]
 pub fn get_base_path(app: &AppHandle, folder: &str) -> PathBuf {
     #[cfg(debug_assertions)] // for dev, e.g. ../data/PO
     {
@@ -9,7 +10,7 @@ pub fn get_base_path(app: &AppHandle, folder: &str) -> PathBuf {
 
     #[cfg(not(debug_assertions))] // for bundled App 
     {
-        let mut path = tauri::api::path::app_data_dir(&app.config())
+        let mut path = tauri::path::app_data_dir(&app.config())
             .unwrap_or_else(|| PathBuf::from("."));
         path.push(folder);
         return path;
