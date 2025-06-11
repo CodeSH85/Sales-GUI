@@ -78,6 +78,9 @@ import type { Item, ViewModel } from '~/type/types';
 import type { TableColumns } from '~/type/table/tableTypes';
 
 const {
+  currentTabId,
+} = storeToRefs(useMainTabsStore());
+const {
   setViewModel,
   getViewModel,
 } = useViewModels();
@@ -86,7 +89,7 @@ const billList = ref<object[]>([])
 
 onMounted(async () => {
 	console.log('onMounted purchase-requisition');
-  setViewModel('purchase-requisition', colModel);
+  setViewModel(currentTabId.value, colModel);
 
 	const { data: result, status } = await useFetch('/api/readFiles/PO')
 	if (result.value) {
