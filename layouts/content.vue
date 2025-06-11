@@ -34,7 +34,7 @@
           @click="onDeleteData"
         />
       </div>
-      <div class="w-full flex items-center justify-center">
+      <div class="w-full flex items-center justify-end pr-4">
         <CommonPopover>
           <template #activator="{ open, close }">
             <CommonInput
@@ -98,10 +98,10 @@ const {
   updateValue
 } = useViewModels();
 
-const { openFile, readFile } = useFiles();
+const { openFile, readFile, createFile, deleteFile } = useFiles();
 
 function onAddNewBlank() {
-	
+	viewModels.value[currentTabId.value].values = {};
 }
 
 function onChangeData() {
@@ -109,18 +109,29 @@ function onChangeData() {
 }
 async function onSaveData() {
 	console.log('Save data')
+  const data = viewModels.value[currentTabId.value]?.values || {}
   try {
-		const result = await $fetch('/api/create/PO', {
-      method: 'POST',
-			// body: viewModel.value.values
-    })
+		// const result = await $fetch('/api/create/PO', {
+    //   method: 'POST',
+		// 	// body: viewModel.value.values
+    // })
+    // console.log(result)
+    const result = await createFile('PR', data)
     console.log(result)
 	} catch (err) {
-		console.error('Error creating PO:', err)
+		console.error('Error creating PR:', err)
 	}
 }
-function onDeleteData() {
+async function onDeleteData() {
 	console.log('Delete data')
+  const data = viewModels.value[currentTabId.value]?.values || {}
+  if (!data?.id) return
+  try {
+    const result = await deleteFile('PR', data.id)
+    console.log(result)
+	} catch (err) {
+		console.error('Error creating PR:', err)
+	}
 }
 
 async function onImportExcel() {
@@ -132,7 +143,7 @@ const filterList = ref<object[]>([])
 const queryText = ref('');
 
 onMounted(async () => {
-	const { data: result } = await useFetch('/api/readFiles/PO')
+	const { data: result } = await useFetch('/api/readFiles/PR')
   if (result.value) {
     filterList.value = result.value.map((r) => {
       return {
