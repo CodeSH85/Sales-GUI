@@ -55,6 +55,11 @@ export function useFiles() {
     }
   }
 
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
   async function readFile(id: string) {
     try {
       const result = await invoke<string>('read_file', { id })
@@ -64,7 +69,39 @@ export function useFiles() {
       }
       return file.value
     } catch (error) {
-      console.error('Error fetching files:', error)
+      console.error('Error fetching file:', error)
+    }
+  }
+
+  /**
+   * 
+   * @param division - folder you want to create at.
+   * @param data - data you want to save
+   * @returns 
+   */
+  async function createFile(division: string, data: Record<string, any>): Promise<string | undefined> {
+    try {
+      const result = await invoke<string>('create_file', { division, data })
+      return result
+    } catch (error) {
+      console.error('Error create file:', error)
+      throw error
+    }
+  }
+
+  /**
+   * 
+   * @param division - folder you want to delete at.
+   * @param id - file you want to delete.
+   * @returns 
+   */
+  async function deleteFile(division: string, id: string): Promise<string | undefined> {
+    try {
+      const result = await invoke<string>('delete_file', { division, id })
+      return result
+    } catch (error) {
+      console.error('Error delete file:', error)
+      throw error
     }
   }
 
@@ -72,5 +109,7 @@ export function useFiles() {
     file,
     openFile,
     readFile,
+    createFile,
+    deleteFile
   }
 }
