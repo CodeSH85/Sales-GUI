@@ -10,7 +10,7 @@ pub fn get_base_path(app: &AppHandle, folder: &str) -> PathBuf {
 
     #[cfg(not(debug_assertions))] // for bundled App 
     {
-        let mut path = tauri::path::app_data_dir(&app.config())
+        let mut path = app.path().app_data_dir()
             .unwrap_or_else(|| PathBuf::from("."));
         path.push(folder);
         return path;
