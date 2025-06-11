@@ -1,5 +1,5 @@
 use std::path::PathBuf;
-use tauri::AppHandle;
+use tauri::{AppHandle, Manager};
 
 #[allow(unused_variables)]
 pub fn get_base_path(app: &AppHandle, folder: &str) -> PathBuf {
