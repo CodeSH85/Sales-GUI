@@ -4,7 +4,7 @@ use tauri::AppHandle;
 use serde_json::Value;
 
 #[tauri::command]
-pub fn read_files(app: AppHandle, division: String) -> Result<Vec<Value>, String> {
+pub fn read_dir(app: AppHandle, division: String) -> Result<Vec<Value>, String> {
     let dir = get_base_path(&app, &division);
     
     // Read all the files under dir, return e.g. "./PO/PO-001.json"
