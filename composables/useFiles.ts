@@ -80,7 +80,7 @@ export function useFiles() {
    */
   async function readDir(division: string): Promise<any[]> {
   try {
-    const result = await invoke<any[]>('read_files', { division })
+    const result = await invoke<any[]>('read_dir', { division })
     console.log('read dir:', division, result)
     return result
   } catch (error) {
