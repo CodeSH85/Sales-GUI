@@ -61,6 +61,8 @@
               </div>
               <div v-if="filterList?.length" class="w-full">
                 <table class="w-full">
+                  {{ allFiles }}//////
+                  {{ filterList }}
                   <thead class="*:px-2 text-xs font-normal text-dimmed">
                     <!-- TODO: hardcoded columns for now -->
                     <th class="text-left">編號</th>
@@ -144,18 +146,24 @@ const queryText = ref('');
 
 onMounted(async () => {
 	// const { data: result } = await useFetch('/api/readFiles/PR')
-  const result = await readDir('PR')
+  onReadDir('PR')
+});
+
+const allFiles = ref<any[]>([])
+async function onReadDir(folder: string) {
+  const result = await readDir(folder)
+  allFiles.value = result;
   if (result) {
     filterList.value = result.map((r) => {
       return {
-        key: r.id.split('.')[0],
-        title: r.id.split('.')[0],
+        key: r.id,
+        title: r.id,
         // TODO: orderDate should be changed to createDate 
         createDate: r.orderDate
       }
     })
   }
-});
+}
 
 async function onClickFilterItem(id: string) {
   if (!id) return
