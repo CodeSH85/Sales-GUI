@@ -59,7 +59,6 @@
                   @click="queryText = ''"
                 />
               </div>
-              {{ allFiles }}|||||{{ filterList }}
               <div v-if="filterList?.length" class="w-full">
                 <table class="w-full">
                   <thead class="*:px-2 text-xs font-normal text-dimmed">
@@ -119,6 +118,7 @@ async function onSaveData() {
     // console.log(result)
     const result = await createFile('PR', data)
     console.log(result)
+    onReadDir('PR')
 	} catch (err) {
 		console.error('Error creating PR:', err)
 	}
@@ -130,6 +130,8 @@ async function onDeleteData() {
   try {
     const result = await deleteFile('PR', data.id)
     console.log(result)
+    onReadDir('PR')
+    onAddNewBlank()
 	} catch (err) {
 		console.error('Error deleting PR:', err)
 	}
@@ -148,10 +150,8 @@ onMounted(async () => {
   onReadDir('PR')
 });
 
-const allFiles = ref<any[]>([])
 async function onReadDir(folder: string) {
   const result = await readDir(folder)
-  allFiles.value = result;
   if (result) {
     filterList.value = result.map((r) => {
       return {
