@@ -1,5 +1,6 @@
 mod commands;
 use commands::read_file;
+use commands::read_dir;
 use commands::create_file;
 use commands::delete_file;
 use commands::parse_excel;
@@ -11,6 +12,7 @@ pub fn run() {
         .plugin(tauri_plugin_dialog::init())
         .invoke_handler(tauri::generate_handler![
             read_file,
+            read_dir,
             create_file,
             delete_file,
             parse_excel

@@ -98,7 +98,7 @@ const {
   updateValue
 } = useViewModels();
 
-const { openFile, readFile, createFile, deleteFile } = useFiles();
+const { openFile, readFile, readDir, createFile, deleteFile } = useFiles();
 
 function onAddNewBlank() {
 	viewModels.value[currentTabId.value].values = {};
@@ -143,9 +143,10 @@ const filterList = ref<object[]>([])
 const queryText = ref('');
 
 onMounted(async () => {
-	const { data: result } = await useFetch('/api/readFiles/PR')
-  if (result.value) {
-    filterList.value = result.value.map((r) => {
+	// const { data: result } = await useFetch('/api/readFiles/PR')
+  const result = await readDir('PR')
+  if (result) {
+    filterList.value = result.map((r) => {
       return {
         key: r.id.split('.')[0],
         title: r.id.split('.')[0],

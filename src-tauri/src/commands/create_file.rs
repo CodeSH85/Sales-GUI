@@ -6,6 +6,8 @@ use tauri::AppHandle;
 pub fn create_file(app: AppHandle, division: String, data: serde_json::Value) -> Result<String, String> {
     let id = format!("{}-{}", division, generate_timestamp());
 
+    // TODO: auto create date
+
     // let folder_path = PathBuf::from("../data").join(&division);
     let folder_path = get_base_path(&app, &division);
     println!("Write to: {:?}", folder_path);

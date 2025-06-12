@@ -75,6 +75,22 @@ export function useFiles() {
 
   /**
    * 
+   * @param division - dir you want to go through
+   * @returns {array} - all JSON files under the dir.
+   */
+  async function readDir(division: string): Promise<any[]> {
+  try {
+    const result = await invoke<any[]>('read_files', { division })
+    console.log('read dir:', division, result)
+    return result
+  } catch (error) {
+    console.error('Error reading directory:', error)
+    return []
+  }
+}
+
+  /**
+   * 
    * @param division - folder you want to create at.
    * @param data - data you want to save
    * @returns 
@@ -82,22 +98,24 @@ export function useFiles() {
   async function createFile(division: string, data: Record<string, any>): Promise<string | undefined> {
     try {
       const result = await invoke<string>('create_file', { division, data })
+      console.log(result)
       return result
     } catch (error) {
       console.error('Error create file:', error)
       throw error
     }
   }
-
+  
   /**
    * 
    * @param division - folder you want to delete at.
    * @param id - file you want to delete.
    * @returns 
-   */
-  async function deleteFile(division: string, id: string): Promise<string | undefined> {
-    try {
-      const result = await invoke<string>('delete_file', { division, id })
+  */
+ async function deleteFile(division: string, id: string): Promise<string | undefined> {
+   try {
+     const result = await invoke<string>('delete_file', { division, id })
+     console.log(result)
       return result
     } catch (error) {
       console.error('Error delete file:', error)
@@ -109,6 +127,7 @@ export function useFiles() {
     file,
     openFile,
     readFile,
+    readDir,
     createFile,
     deleteFile
   }
