@@ -59,10 +59,9 @@
                   @click="queryText = ''"
                 />
               </div>
+              {{ allFiles }}|||||{{ filterList }}
               <div v-if="filterList?.length" class="w-full">
                 <table class="w-full">
-                  {{ allFiles }}//////
-                  {{ filterList }}
                   <thead class="*:px-2 text-xs font-normal text-dimmed">
                     <!-- TODO: hardcoded columns for now -->
                     <th class="text-left">編號</th>
@@ -132,7 +131,7 @@ async function onDeleteData() {
     const result = await deleteFile('PR', data.id)
     console.log(result)
 	} catch (err) {
-		console.error('Error creating PR:', err)
+		console.error('Error deleting PR:', err)
 	}
 }
 
