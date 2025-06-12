@@ -5,7 +5,7 @@ use tauri::{AppHandle, Manager};
 pub fn get_base_path(app: &AppHandle, folder: &str) -> PathBuf {
     #[cfg(debug_assertions)] // for dev, e.g. ../data/PO
     {
-        return PathBuf::from("../lacalDatas").join(folder);
+        return PathBuf::from("../localDatas").join(folder);
     }
 
     #[cfg(not(debug_assertions))] // for bundled App 

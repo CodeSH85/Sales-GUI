@@ -9,10 +9,12 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_dialog::init())
-        .invoke_handler(tauri::generate_handler![read_file])
-        .invoke_handler(tauri::generate_handler![create_file])
-        .invoke_handler(tauri::generate_handler![delete_file])
-        .invoke_handler(tauri::generate_handler![parse_excel])
+        .invoke_handler(tauri::generate_handler![
+            read_file,
+            create_file,
+            delete_file,
+            parse_excel
+        ])
         .setup(|app| {
             if cfg!(debug_assertions) {
                 app.handle().plugin(
