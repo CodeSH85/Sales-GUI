@@ -55,7 +55,12 @@ export function useFiles() {
     }
   }
 
-  async function getFile(id: string) {
+  /**
+   * 
+   * @param id 
+   * @returns 
+   */
+  async function readFile(id: string) {
     try {
       const result = await invoke<string>('read_file', { id })
       console.log('Files fetched successfully:', id, result)
@@ -64,13 +69,66 @@ export function useFiles() {
       }
       return file.value
     } catch (error) {
-      console.error('Error fetching files:', error)
+      console.error('Error fetching file:', error)
+    }
+  }
+
+  /**
+   * 
+   * @param division - dir you want to go through
+   * @returns {array} - all JSON files under the dir.
+   */
+  async function readDir(division: string): Promise<any[]> {
+  try {
+    const result = await invoke<any[]>('read_dir', { division })
+    console.log('read dir:', division, result)
+    return result
+  } catch (error) {
+    console.error('Error reading directory:', error)
+    return []
+  }
+}
+
+  /**
+   * 
+   * @param division - folder you want to create at.
+   * @param data - data you want to save
+   * @returns 
+   */
+  async function createFile(division: string, data: Record<string, any>): Promise<string | undefined> {
+    try {
+      const result = await invoke<string>('create_file', { division, data })
+      console.log(result)
+      return result
+    } catch (error) {
+      console.error('Error create file:', error)
+      throw error
+    }
+  }
+  
+  /**
+   * 
+   * @param division - folder you want to delete at.
+   * @param id - file you want to delete.
+   * @returns 
+  */
+ async function deleteFile(division: string, id: string): Promise<string | undefined> {
+   try {
+     const result = await invoke<string>('delete_file', { division, id })
+     console.log(result)
+      return result
+    } catch (error) {
+      console.error('Error delete file:', error)
+      throw error
     }
   }
 
   return {
     file,
     openFile,
-    getFile,
+    readFile,
+    readDir,
+    createFile,
+    deleteFile
   }
 }

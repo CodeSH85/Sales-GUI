@@ -29,6 +29,6 @@ export default defineNuxtConfig({
       pathPrefix: false,
     }
   ],
-  modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/ui', '@vueuse/nuxt', '@pinia/nuxt', '@nuxtjs/color-mode'],
+  modules: ['@nuxt/eslint', '@nuxt/icon', '@nuxt/ui', '@vueuse/nuxt', '@pinia/nuxt', '@nuxtjs/color-mode', '@vueuse/nuxt'],
   css: ['~/assets/css/main.css']
 })

@@ -1,12 +1,12 @@
 import { ref, computed } from 'vue';
 import type { ViewModel, Item } from '../type/types';
 
+const viewModels = ref<Record<string, ViewModel>>({});
+// {
+//   [key: string]: viewModel
+// }
 export function useViewModels() {
-  const viewModels = ref<Record<string, ViewModel>>({});
-  // {
-  //   [key: string]: viewModel
-  // }
-
+  
   /**
    * 
    * @param {string} tabId - current tab id. 
